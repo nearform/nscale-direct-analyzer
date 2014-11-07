@@ -1,0 +1,22 @@
+{
+  "name": "nscale-direct-analyzer",
+  "version": "0.0.1",
+  "description": "nscale-direct-analyzer ======================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nearform/nscale-direct-analyzer.git"
+  },
+  "author": "Matteo Collina <matteo.collin@nearform.com>",
+  "license": "Artistic License 2.0",
+  "bugs": {
+    "url": "https://github.com/nearform/nscale-direct-analyzer/issues"
+  },
+  "homepage": "https://github.com/nearform/nscale-direct-analyzer",
+  "dependencies": {
+    "nscale-docker-ssh-analyzer": "^0.1.0"
+  }
+}
