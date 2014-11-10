@@ -39,15 +39,22 @@ exports.analyze = function analyze(config, system, cb) {
     }
   };
 
-  Object.keys(system.topology.containers).filter(function(id) {
-    return system.topology.containers[id].containedBy === id;
-  }).reduce(function(acc, id) {
+  Object.keys(system.topology.containers).reduce(function(acc, id) {
     var original = system.topology.containers[id].specific;
     var ip = original.privateIpAddress || original.ipAddress || original.ipaddress;
+    var parentId = system.topology.containers[id].containedBy;
+
+    if (!ip) {
+      return acc;
+    }
+
+    if (id !== parentId) {
+      acc[parentId] = system.topology.containers[parentId];
+    }
 
     acc[id] = {
       id: id,
-      containedBy: id,
+      containedBy: parentId,
       name: id,
       contains: [],
       type: 'blank-container',
