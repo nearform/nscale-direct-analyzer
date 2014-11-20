@@ -66,7 +66,7 @@ exports.analyze = function analyze(config, system, cb) {
     return acc;
   }, result.topology.containers);
 
-  var docker = dockerAnalyzer(system);
+  var docker = dockerAnalyzer(config, system);
   docker(config, result, function(err) {
     if (err) { return cb(err); }
     cb(null, result);
