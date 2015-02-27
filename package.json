@@ -4,7 +4,7 @@
   "description": "nscale-direct-analyzer ======================",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/nearform/nscale-direct-analyzer",
   "dependencies": {
     "nscale-docker-ssh-analyzer": "~0.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0"
   }
 }

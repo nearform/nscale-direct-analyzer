@@ -15,6 +15,11 @@
 'use strict';
 
 var dockerAnalyzer = require('nscale-docker-ssh-analyzer');
+var allowedTypes = [
+  'docker',
+  'process',
+  'blank-container'
+];
 
 /**
  * run an analysis over direct links.
@@ -72,4 +77,30 @@ exports.analyze = function analyze(config, system, cb) {
     cb(null, result);
   });
 };
+
+
+
+/**
+ * Checks if this analyzer can analyze the given system.
+ * A direct-analyzer can analyze if it contains docker or process
+ * containers, and blank-containers with an IP address.
+ *
+ */
+exports.canAnalyze = function canAnalyze(system) {
+
+  return system.containerDefinitions.every(function(def) {
+    var rightType = allowedTypes.indexOf(def.type) >= 0;
+    var hasIp = !!(
+                  def.type === 'blank-container' &&
+                  def.specific &&
+                  (
+                    def.specific.ipAddress ||
+                    def.specific.ipaddress ||
+                    def.specific.privateIpAddress
+                  )
+                );
+
+    return rightType && hasIp;
+  });
+}
 
