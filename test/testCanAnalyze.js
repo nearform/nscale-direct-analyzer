@@ -72,4 +72,18 @@ describe('canAnalyze', function() {
     };
     assert(!an.canAnalyze(sys));
   });
+
+  it('should return false if it contains blank-container def and a process def', function(){
+    var sys = {
+      containerDefinitions: [{
+        type: 'blank-container',
+        specific: {
+          ipaddress: '192.168.5.2'
+        }
+      }, {
+        type: 'process'
+      }]
+    };
+    assert(!an.canAnalyze(sys));
+  });
 });

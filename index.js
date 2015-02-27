@@ -17,7 +17,6 @@
 var dockerAnalyzer = require('nscale-docker-ssh-analyzer');
 var allowedTypes = [
   'docker',
-  'process',
   'blank-container'
 ];
 
@@ -102,5 +101,5 @@ exports.canAnalyze = function canAnalyze(system) {
 
     return rightType && hasIp;
   });
-}
+};
 
