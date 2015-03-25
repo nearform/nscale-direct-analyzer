@@ -20,70 +20,71 @@ var assert = require('assert');
 describe('canAnalyze', function() {
   it('should return false if it contains blank-container def without ipAddress', function(){
     var sys = {
-      containerDefinitions: [{
+      topology: { containers: [{
         type: 'blank-container',
         specific: {
         }
       }, {
         type: 'docker'
-      }]
+      }]}
     };
     assert(!an.canAnalyze(sys));
   });
 
   it('should return true if it contains blank-container def with ipAddress', function() {
     var sys = {
-      containerDefinitions: [{
+      topology: { containers: [{
         type: 'blank-container',
         specific: {
           ipAddress: '192.168.5.2'
         }
       }, {
         type: 'docker'
-      }]
+      }]}
     };
-    assert(!an.canAnalyze(sys));
+    assert(an.canAnalyze(sys));
   });
 
   it('should return true if it contains a blank-container def with priveIpAddress', function() {
     var sys = {
-      containerDefinitions: [{
+      topology: { containers: [{
         type: 'blank-container',
         specific: {
           privateIpAddress: '192.168.5.2'
         }
       }, {
         type: 'docker'
-      }]
+      }]}
     };
-    assert(!an.canAnalyze(sys));
+    assert(an.canAnalyze(sys));
   });
 
   it('should return true if it contains a blank-container def with priveIpAddress', function() {
     var sys = {
-      containerDefinitions: [{
+      topology: { containers: [{
         type: 'blank-container',
         specific: {
           ipaddress: '192.168.5.2'
         }
       }, {
         type: 'docker'
-      }]
+      }]}
     };
-    assert(!an.canAnalyze(sys));
+    assert(an.canAnalyze(sys));
   });
 
-  it('should return false if it contains blank-container def and a process def', function(){
+  it('should return false if it contains a process def', function(){
     var sys = {
-      containerDefinitions: [{
+      topology: { containers: [{
         type: 'blank-container',
         specific: {
           ipaddress: '192.168.5.2'
         }
       }, {
         type: 'process'
-      }]
+      }]}
     };
     assert(!an.canAnalyze(sys));
   });
 });
+

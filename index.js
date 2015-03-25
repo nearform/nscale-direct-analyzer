@@ -14,6 +14,7 @@
 
 'use strict';
 
+var _ = require('lodash');
 var dockerAnalyzer = require('nscale-docker-ssh-analyzer');
 var allowedTypes = [
   'docker',
@@ -86,20 +87,24 @@ exports.analyze = function analyze(config, system, cb) {
  *
  */
 exports.canAnalyze = function canAnalyze(system) {
-
-  return system.containerDefinitions.every(function(def) {
-    var rightType = allowedTypes.indexOf(def.type) >= 0;
+  var result = _.some(system.topology.containers, function(cont) {
+    var rightType = allowedTypes.indexOf(cont.type) >= 0;
     var hasIp = !!(
-                  def.type === 'blank-container' &&
-                  def.specific &&
+                  cont.type === 'blank-container' &&
+                  cont.specific &&
                   (
-                    def.specific.ipAddress ||
-                    def.specific.ipaddress ||
-                    def.specific.privateIpAddress
+                    cont.specific.ipAddress ||
+                    cont.specific.ipaddress ||
+                    cont.specific.privateIpAddress
                   )
                 );
-
     return rightType && hasIp;
   });
+
+  result = result && _.every(system.topology.containers, function(cont) {
+    return allowedTypes.indexOf(cont.type) >= 0;
+  });
+
+  return result;
 };
 
