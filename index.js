@@ -87,7 +87,7 @@ exports.analyze = function analyze(config, system, cb) {
  *
  */
 exports.canAnalyze = function canAnalyze(system) {
-  return _.some(system.topology.containers, function(cont) {
+  var result = _.some(system.topology.containers, function(cont) {
     var rightType = allowedTypes.indexOf(cont.type) >= 0;
     var hasIp = !!(
                   cont.type === 'blank-container' &&
@@ -98,8 +98,13 @@ exports.canAnalyze = function canAnalyze(system) {
                     cont.specific.privateIpAddress
                   )
                 );
-
     return rightType && hasIp;
   });
+
+  result = result && _.every(system.topology.containers, function(cont) {
+    return allowedTypes.indexOf(cont.type) >= 0;
+  });
+
+  return result;
 };
 
