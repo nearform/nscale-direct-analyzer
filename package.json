@@ -1,6 +1,6 @@
 {
   "name": "nscale-direct-analyzer",
-  "version": "0.17.1",
+  "version": "0.17.2",
   "description": "nscale-direct-analyze",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "homepage": "https://github.com/nearform/nscale-direct-analyzer",
   "dependencies": {
     "lodash": "^2.4.1",
-    "nscale-docker-ssh-analyzer": "~0.17.1"
+    "nscale-docker-ssh-analyzer": "~0.17.2"
   },
   "devDependencies": {
     "mocha": "^2.1.0"
